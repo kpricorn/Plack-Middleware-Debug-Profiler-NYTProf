@@ -1,0 +1,39 @@
+# NAME
+
+Plack::Middleware::Debug::Profiler::NYTProf - Validate your Response Content
+
+## SYNOPSIS
+
+    use Plack::Builder;
+
+    my $app = ...; ## Build your Plack App
+
+    builder {
+        enable 'Debug', panels =>['Profiler::NYTProf'];
+        $app;
+    };
+
+# DESCRIPTION
+
+TBD
+
+# OPTIONS
+
+This debug panel defines the following options.
+
+## root exclude
+
+TBD
+
+# SEE ALSO
+
+[Plack::Middleware::Debug](http://search.cpan.org/perldoc?Plack::Middleware::Debug)
+
+# AUTHOR
+
+Sebastian de Castelberg, `<sdecaste@cpan.org>`
+
+# COPYRIGHT & LICENSE
+
+This program is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
