@@ -12,10 +12,10 @@
 \.cvsignore
 ^t/9\d_.*\.t
 ^t/perlcritic
+^xt/
 ^tools/
 \.svn/
+\.git/
 ^[^/]+\.yaml$
 ^[^/]+\.pl$
 ^\.shipit$
-^\.git/
-\.sw[po]$

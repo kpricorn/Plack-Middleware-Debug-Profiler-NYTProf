@@ -1,39 +1,36 @@
-# NAME
+NAME
+    Plack::Middleware::Debug::Profiler::NYTProf - Runs NYTProf on your app
 
-Plack::Middleware::Debug::Profiler::NYTProf - Validate your Response Content
+  SYNOPSIS
+        use Plack::Builder;
 
-## SYNOPSIS
+        my $app = ...; ## Build your Plack App
 
-    use Plack::Builder;
+        builder {
+            enable 'Debug', panels =>['Profiler::NYTProf'];
+            $app;
+        };
 
-    my $app = ...; ## Build your Plack App
+DESCRIPTION
+    Adds a debug panel that runs and displays Devel::NYTProf on your perl
+    source code.
 
-    builder {
-        enable 'Debug', panels =>['Profiler::NYTProf'];
-        $app;
-    };
+OPTIONS
+    This debug panel defines the following options.
 
-# DESCRIPTION
+  root
+    Where to store nytprof.out and nytprofhtml output (default: '/tmp').
 
-TBD
+  exclude
+    List of excluded paths (default: ['/css.*']).
 
-# OPTIONS
+SEE ALSO
+    Plack::Middleware::Debug Devel::NYTProf
 
-This debug panel defines the following options.
+AUTHOR
+    Sebastian de Castelberg, "<sebu@kpricorn.org>"
 
-## root exclude
+COPYRIGHT & LICENSE
+    This program is free software; you can redistribute it and/or modify it
+    under the same terms as Perl itself.
 
-TBD
-
-# SEE ALSO
-
-[Plack::Middleware::Debug](http://search.cpan.org/perldoc?Plack::Middleware::Debug)
-
-# AUTHOR
-
-Sebastian de Castelberg, `<sdecaste@cpan.org>`
-
-# COPYRIGHT & LICENSE
-
-This program is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself.

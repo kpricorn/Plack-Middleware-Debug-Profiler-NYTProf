@@ -15,7 +15,7 @@ sub prepare_app {
     $self->root($self->root || '/tmp');
     $self->files(Plack::App::File->new(root => $self->root));
 
-    $self->exclude($self->exclude || [qw(/api.* /css.* /)]);
+    $self->exclude($self->exclude || [qw(/css.*)]);
     Carp::croak "exclude not an array" if ref($self->exclude) ne 'ARRAY';
 }
 
@@ -71,5 +71,53 @@ sub DESTROY {
     DB::finish_profile();
 }
 
-
 1;
+__END__
+
+=head1 NAME
+
+Plack::Middleware::Debug::Profiler::NYTProf - Runs NYTProf on your app
+
+=head2 SYNOPSIS
+
+    use Plack::Builder;
+
+    my $app = ...; ## Build your Plack App
+
+    builder {
+        enable 'Debug', panels =>['Profiler::NYTProf'];
+        $app;
+    };
+
+=head1 DESCRIPTION
+
+Adds a debug panel that runs and displays Devel::NYTProf on your perl source 
+code.
+
+=head1 OPTIONS
+
+This debug panel defines the following options.
+
+=head2 root
+
+Where to store nytprof.out and nytprofhtml output (default: '/tmp').
+
+=head2 exclude
+
+List of excluded paths (default: ['/css.*']).
+
+=head1 SEE ALSO
+
+L<Plack::Middleware::Debug>
+L<Devel::NYTProf>
+
+=head1 AUTHOR
+
+Sebastian de Castelberg, C<< <sebu@kpricorn.org> >>
+
+=head1 COPYRIGHT & LICENSE
+
+This program is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
+
+=cut

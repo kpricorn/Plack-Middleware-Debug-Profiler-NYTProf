@@ -1,6 +1,11 @@
 use inc::Module::Install;
 name 'Plack-Middleware-Debug-Profiler-NYTProf';
 all_from 'lib/Plack/Middleware/Debug/Profiler/NYTProf.pm';
+readme_from 'lib/Plack/Middleware/Debug/Profiler/NYTProf.pm';
+readme_markdown_from 'lib/Plack/Middleware/Debug/Profiler/NYTProf.pm';
+
+auto_set_repository;
+auto_install;
 
 requires(
     'Plack'          => 0,
