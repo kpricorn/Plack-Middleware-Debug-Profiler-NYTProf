@@ -18,45 +18,40 @@ sub prepare_app {
         mkdir $self->root or die "Cannot create directory " . $self->root;
     }
 
-    $ENV{NYTPROF} ||= "addpid=1:start=no:file=".$self->root."/nytprof.out";
+    $ENV{NYTPROF} ||= "addpid=1:file=".$self->root."/nytprof.out";
     require Devel::NYTProf;
 
-    $self->exclude($self->exclude || [qw(.*.css .*.png .*.ico .*.js)]);
+    $self->exclude($self->exclude || [qw(.*\.css .*\.png .*\.ico .*\.js)]);
     Carp::croak "exclude not an array" if ref($self->exclude) ne 'ARRAY';
 }
 
 sub call {
     my($self, $env) = @_;
-    print STDERR "NYTProf:  ", $env->{PATH_INFO}, "\n";
+    my $panel = $self->default_panel;
+
     if ($env->{PATH_INFO} =~ m!nytprofhtml!) {
-        print STDERR "NYTProf: MATCH \n";
         $env->{'plack.debug.disabled'} = 1;
         return $self->{files}->call($env);
     }
 
-    print STDERR "NYTProf: enable_profile \n";
-    DB::enable_profile();
-    return $self->SUPER::call($env);
+    foreach my $pattern (@{$self->exclude}) {
+        if ($env->{PATH_INFO} =~ m!^$pattern$!) {
+            return $self->SUPER::call($env);
+        }
+    }
+
+    DB::enable_profile($self->root . "/nytprof.out.$$");
+    my $res = $self->SUPER::call($env);
+    DB::finish_profile();
+    $self->report($env);
+    return $res;
 }
 
 sub run {
     my($self, $env, $panel) = @_;
-
-    foreach my $pattern (@{$self->exclude}) {
-        if ($env->{PATH_INFO} =~ m!^$pattern$!) {
-            $panel->nav_subtitle('Excluded');
-            print STDERR "NYTProf: excluded ", $env->{PATH_INFO}, " \n";
-            return;
-        }
-    }
-
-    return sub {
+    return sub {        
         my $res = shift;
-        print STDERR "NYTProf: finish_profile\n";
-        DB::finish_profile();
-        $self->report($env);
         $panel->nav_subtitle('OK');
-
         $panel->content('<iframe src ="/nytprofhtml.'.$$.'/index.html" width="100%" height="100%">
           <p>Your browser does not support iframes.</p>
         </iframe>');
@@ -65,9 +60,7 @@ sub run {
 
 sub report {
     my ( $self, $env ) = @_;
-    print STDERR "NYTProf: report\n";
     if ( -f $self->root . "/nytprof.out.$$" ) {
-        print STDERR "NYTProf: nytprofhtml\n";
         system "nytprofhtml", "-f", $self->root . "/nytprof.out.$$", "-o", $self->root . "/nytprofhtml.$$";
     }
 }
@@ -105,7 +98,7 @@ Where to store nytprof.out and nytprofhtml output (default: '/tmp').
 
 =head2 exclude
 
-List of excluded paths (default: ['/css.*', '/favicon.ico']).
+List of excluded paths (default: [qw(.*\.css .*\.png .*\.ico .*\.js)]).
 
 =head1 SEE ALSO
 
