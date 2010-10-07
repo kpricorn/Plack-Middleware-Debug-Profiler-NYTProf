@@ -18,7 +18,12 @@ sub prepare_app {
         mkdir $self->root or die "Cannot create directory " . $self->root;
     }
 
-    $ENV{NYTPROF} ||= "addpid=1:file=".$self->root."/nytprof.out";
+    # start=begin - start immediately (the default)
+    # start=init  - start at beginning of INIT phase (after compilation)
+    # start=end   - start at beginning of END phase
+    # start=no    - don't automatically start
+    $ENV{NYTPROF} ||= "start=begin:file=".$self->root."/nyprof.null.out";
+    require Devel::NYTProf::Core;
     require Devel::NYTProf;
 
     $self->exclude($self->exclude || [qw(.*\.css .*\.png .*\.ico .*\.js)]);
@@ -40,9 +45,12 @@ sub call {
         }
     }
 
-    DB::enable_profile($self->root . "/nytprof.out.$$");
+    DB::enable_profile($self->root."/nytprof.out.$$");
     my $res = $self->SUPER::call($env);
-    DB::finish_profile();
+    DB::disable_profile();
+    DB::enable_profile($self->root."/nyprof.null.out");
+    DB::disable_profile();
+
     $self->report($env);
     return $res;
 }
@@ -63,6 +71,10 @@ sub report {
     if ( -f $self->root . "/nytprof.out.$$" ) {
         system "nytprofhtml", "-f", $self->root . "/nytprof.out.$$", "-o", $self->root . "/nytprofhtml.$$";
     }
+}
+
+sub DESTROY {
+    DB::finish_profile();
 }
 
 1;
