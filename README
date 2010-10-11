@@ -22,7 +22,7 @@ OPTIONS
     Where to store nytprof.out and nytprofhtml output (default: '/tmp').
 
   exclude
-    List of excluded paths (default: ['/css.*']).
+    List of excluded paths (default: [qw(.*\.css .*\.png .*\.ico .*\.js)]).
 
 SEE ALSO
     Plack::Middleware::Debug Devel::NYTProf

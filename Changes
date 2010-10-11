@@ -1,4 +1,7 @@
 Revision history for Perl extension Plack::Middleware::Debug::Profiler::NYTProf
 
+0.02    Mon Oct 11 22:00:13 2010
+        - cpan upload
+
 0.01    Thu Jul  1 11:00:13 2010
         - original version
