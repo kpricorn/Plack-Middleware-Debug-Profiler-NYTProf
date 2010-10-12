@@ -37,7 +37,7 @@ List of excluded paths (default: [qw(.*\.css .*\.png .*\.ico .*\.js)]).
 
 # AUTHOR
 
-Sebastian de Castelberg, `<sebu@kpricorn.org>`
+Sebastian de Castelberg, `<sdecaste@cpan.org>`
 
 # COPYRIGHT & LICENSE
 

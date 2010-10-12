@@ -7,7 +7,7 @@ use Plack::Util::Accessor qw(root exclude);
 use Time::HiRes;
 
 use parent 'Plack::Middleware::Debug::Base';
-our $VERSION = '0.04';
+our $VERSION = '0.05';
 
 sub prepare_app {
     my $self = shift;
@@ -119,7 +119,7 @@ L<Devel::NYTProf>
 
 =head1 AUTHOR
 
-Sebastian de Castelberg, C<< <sebu@kpricorn.org> >>
+Sebastian de Castelberg, C<< <sdecaste@cpan.org> >>
 
 =head1 COPYRIGHT & LICENSE
 

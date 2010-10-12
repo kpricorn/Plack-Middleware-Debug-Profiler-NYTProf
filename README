@@ -28,7 +28,7 @@ SEE ALSO
     Plack::Middleware::Debug Devel::NYTProf
 
 AUTHOR
-    Sebastian de Castelberg, "<sebu@kpricorn.org>"
+    Sebastian de Castelberg, "<sdecaste@cpan.org>"
 
 COPYRIGHT & LICENSE
     This program is free software; you can redistribute it and/or modify it
