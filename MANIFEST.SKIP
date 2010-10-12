@@ -19,4 +19,8 @@
 ^[^/]+\.yaml$
 ^[^/]+\.pl$
 ^\.shipit$
+^\.git/
+^\.gitignore
+^\.gitmodules
+/\.git/
 nytprof.out

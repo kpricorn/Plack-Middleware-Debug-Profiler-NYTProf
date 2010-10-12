@@ -19,5 +19,4 @@ auto_set_repository;
 auto_install;
 use_test_base;
 auto_include;
-auto_manifest;
 WriteAll;
