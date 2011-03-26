@@ -39,7 +39,12 @@ List of excluded paths (default: [qw(.*\.css .*\.png .*\.ico .*\.js)]).
 
 Sebastian de Castelberg, `<sdecaste@cpan.org>`
 
+# CONTRIBUTORS
+
+Nuba Princigalli, `<nuba@cpan.org>`
+
 # COPYRIGHT & LICENSE
 
 This program is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.
+
